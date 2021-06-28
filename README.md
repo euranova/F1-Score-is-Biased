@@ -33,7 +33,7 @@ We provide multiple notebooks and a script to reproduce the results presented in
 
 ### Table 1 - Demonstration of the sensitivity of the metrics to the evaluation protocol
 
-![Table 1](./imgs/Table1.png=250x)
+![Table 1](./imgs/Table1.png)
 
 The script *f1-hack.py* produce the results presented in the Table 1.
 You can run the script by running:
@@ -46,8 +46,8 @@ You can also change the settings of the experiments by modifying the lines 24, 2
 
 ## Metrics per contamination estimation (Figure 2 & 3)
 
-![Figure 2](./imgs/Figure2.png=250x)
-![Figure 3](./imgs/Figure3.png=250x)
+![Figure 2](./imgs/Figure2.png)
+![Figure 3](./imgs/Figure3.png)
 
 The notebook file *Metrics per contamination estimation (Fig2&3).ipynb* show the evolution of different metrics (F1-score, Precision, Recall) according to the estimated contamination rate.
 It also produce an example of a ROC-Curve and a Precision Recall Curve.
@@ -56,7 +56,7 @@ You can change the dataset by changing the *dataset_name* variable in the second
 
 ## Metrics per true contamination rate (Figure 4)
 
-![Figure 4](./imgs/Figure4.png=250x)
+![Figure 4](./imgs/Figure4.png)
 
 The notebook file *Metrics per true contamination rate (Fig4).ipynb* show the evolution of the F1-score, AUC and AVPR according to the true contamination rate of the test set.
 
@@ -65,14 +65,14 @@ You can change the dataset by changing the *dataset_name* variable in the second
 
 ## Theoritical F1-Score (Figure 5 & 6)
 
-![Figure 5](./imgs/Figure5.png=250x)
-![Figure 6](./imgs/Figure6.png=250x)
+![Figure 5](./imgs/Figure5.png)
+![Figure 6](./imgs/Figure6.png)
 
 The notebook file *Theoritical F1-Score (Fig5&6).ipynb* produce the figures 5 and 6 that present the theoricial evolution of the F1-score for varying contamination rate of the test set (Figure 5) and for different threshold (Figure 6)
 
 ## Toy Dataset Experiments (Figure 7)
 
-![Figure 7](./imgs/Figure7.png=250x)
+![Figure 7](./imgs/Figure7.png)
 
 The notebook file *Toy Dataset Experiments (Fig7).ipynb* reproduce the toy example illustration (Figure 7)
 
