@@ -23,6 +23,9 @@ DATASET_FILE = {
 
 DATASET_FOLDER = os.path.abspath(os.path.join(__file__, "../../datasets/"))
 
+if not os.path.exists(DATASET_FOLDER):
+    os.makedirs(DATASET_FOLDER)
+
 
 def get_path(dataset_name):
     dataset_path = os.path.join(DATASET_FOLDER, DATASET_FILE[dataset_name])
