@@ -1,101 +1,138 @@
+""" Contains the two algorithms presented in the paper as well as sub-functions used in these. """
+
 import numpy as np
 from sklearn.model_selection import train_test_split
 
 from .datasets import normalize_data
-from .scores import get_scores, get_auc_score, get_avpr_score, get_optimal_f1_score
+from .helpers import get_model_scores, get_threshold
+from .scores import get_precision_recall_f1score, get_auc, get_avpr, get_optimal_f1_score
 
 
-def get_model_scores(model, data):
-    # Get the model prediction (lower value for anomalous data)
-    scores = model.score_samples(data)
-    # we want a higher score for anomalous data
-    scores *= -1
-    return scores
+def algo1(samples, labels, test_size, model, compute_metrics=True):
+    """ Algorithm 1 as described in the paper.
 
-
-def get_threshold(scores, contamination_rate_estimation):
-    return np.percentile(scores, (1-contamination_rate_estimation)*100)
-
-
-def get_subset(x, y, subset=0.1):
-    indexes = np.random.choice(len(x), int(len(x) * subset), replace=False)
-    return x[indexes].copy(), y[indexes].copy()
-
-
-def algo1(x, y, test_size, model, compute_metrics=True):
+    :param samples: np.ndarray(Float); samples to use to train and test the given model
+    :param labels: np.ndarray(np.uint8); corresponding labels (1 is anomalous)
+    :param test_size: Float; proportion of samples to use in the test set
+    :param model: sklearn model; model to train and evaluate
+    :param compute_metrics: Bool; whether to compute the metrics or not
+    :return:
+        if compute_metrics is True: (Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score
+        if compute_metrics is False: (np.ndarray(Float), np.ndarray(Float), np.ndarray(Float)):
+            labels, scores and binary predictions of the test set
+    """
     # Split data
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size)
+    x_train, x_test, y_train, y_test = train_test_split(samples, labels, test_size=test_size)
 
-    # Clean train set (y_train: 1 for anomaly, 0 for normal)
+    # Clean the train set (y_train: 1 for anomaly, 0 for normal)
     x_clean = x_train[y_train == 0]
 
-    # Normalize the data fitting on x_clean
+    # Normalize the samples fitting on x_clean
     x_clean, x_train, x_test = normalize_data(fit_on=x_clean, transform=(x_clean, x_train, x_test))
 
     # Train the model using x_train
     model.fit(x_clean)
 
-    # Compute score on train set
+    # Compute the scores obtained on the train set
     s_train = get_model_scores(model, x_train)
 
-    # Compute contamination rate on train set (in [0, 1])
+    # Estimate the contamination rate based on the train set (in [0, 1])
     cont = np.sum(y_train) / len(y_train)
 
-    # Compute threshold with train set
+    # Compute a threshold based on the train set
     thresh = get_threshold(s_train, cont)
 
-    # Compute estimation of test set
+    # Compute the scores obtained on the test set
     s_test = get_model_scores(model, x_test)
 
-    # Compute different scores
+    # Compute the binary predictions
     y_hat_test = (s_test >= thresh).astype(int)
 
-    # Return labels, score, predictions if we want to explore other metrics
+    # Return labels, scores and predictions in case we want to explore other metrics
     if not compute_metrics:
         return y_test, s_test, y_hat_test
 
-    # Get all scores
-    _, _, f1_score = get_scores(y_test, y_hat_test)
-    auc_score = get_auc_score(y_test, s_test)
-    avpr_score = get_avpr_score(y_test, s_test)
-    f1_optimal_score = get_optimal_f1_score(y_test, s_test)
+    # Get all metric values
+    _, _, f1_score = get_precision_recall_f1score(y_test, y_hat_test)
+    auc = get_auc(y_test, s_test)
+    avpr = get_avpr(y_test, s_test)
+    optimal_f1__score = get_optimal_f1_score(y_test, s_test)
 
-    return f1_score, auc_score, avpr_score, f1_optimal_score
+    return f1_score, auc, avpr, optimal_f1__score
 
 
-def algo2(x, y, test_size, model):
+def algo2(samples, labels, test_size, model, compute_metrics=True):
+    """ Algorithm 2 as described in the paper.
+
+    :param samples: np.ndarray(Float); samples to use to train and test the given model
+    :param labels: np.ndarray(np.uint8); corresponding labels (1 is anomalous)
+    :param test_size: Float; proportion of samples to use in the test set
+    :param model: sklearn model; model to train and evaluate
+    :param compute_metrics: Bool; whether to compute the metrics or not
+    :return:
+        if compute_metrics is True: (Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score
+        if compute_metrics is False: (np.ndarray(Float), np.ndarray(Float), np.ndarray(Float)):
+            labels, scores and binary predictions of the test set
+    """
     # Split data
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=test_size)
+    x_train, x_test, y_train, y_test = train_test_split(samples, labels, test_size=test_size, stratify=labels)
 
-    # Clean train set
+    # Clean the train set (y_train: 1 for anomaly, 0 for normal)
     x_clean = x_train[y_train == 0]
 
-    # Re-inject anomalous data in test set
-    x_test = np.concatenate((x_test, x_train[y_train == 1]), axis=0)
-    y_test = np.concatenate((y_test, y_train[y_train == 1]), axis=0)
+    # Re-inject anomalies in the test set
+    x_test = np.r_[x_test, x_train[y_train == 1]]
+    y_test = np.r_[y_test, y_train[y_train == 1]]
 
-    # Normalize data
+    # Normalize the samples fitting on x_clean
     x_clean, x_test = normalize_data(fit_on=x_clean, transform=(x_clean, x_test))
 
     # Train the model using x_train
     model.fit(x_clean)
 
-    # Compute estimation of test set
+    # Compute the scores obtained on the test set
     s_test = get_model_scores(model, x_test)
 
-    # Compute contamination rate on test set (in [0, 1])
+    # Compute the contamination rate of the test set (in [0, 1])
     cont = np.sum(y_test) / len(y_test)
 
-    # Compute threshold with test set
+    # Compute a threshold based on the test set
     thresh = get_threshold(s_test, cont)
 
-    # Compute different scores
+    # Compute the binary predictions
     y_hat_test = (s_test >= thresh).astype(int)
 
-    # Get all scores
-    _, _, f1_score = get_scores(y_test, y_hat_test)
-    auc_score = get_auc_score(y_test, s_test)
-    avpr_score = get_avpr_score(y_test, s_test)
-    f1_optimal_score = get_optimal_f1_score(y_test, s_test)
+    # Return labels, scores and predictions in case we want to explore other metrics
+    if not compute_metrics:
+        return y_test, s_test, y_hat_test
 
-    return f1_score, auc_score, avpr_score, f1_optimal_score
+    # Get all metric values
+    _, _, f1_score = get_precision_recall_f1score(y_test, y_hat_test)
+    auc = get_auc(y_test, s_test)
+    avpr = get_avpr(y_test, s_test)
+    optimal_f1__score = get_optimal_f1_score(y_test, s_test)
+
+    return f1_score, auc, avpr, optimal_f1__score
+
+
+def algo2_end(x_train, x_test, y_test, model):
+    """ Algorithm 2 as described in the paper, but the splitting is already done and there is no normalisation step.
+
+    :param x_train: np.ndarray(Float); samples to use to train the given model
+    :param x_test: np.ndarray(Float); samples to use to test the given model
+    :param y_test: np.ndarray(np.uint8); test labels (1 is anomalous)
+    :param model: sklearn model; model to train and evaluate
+    :return: (Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score
+    """
+    model.fit(x_train)
+    s_test = get_model_scores(model, x_test)
+    cont = np.sum(y_test) / len(y_test)
+    thresh = get_threshold(s_test, cont)
+    y_hat_test = (s_test >= thresh).astype(int)
+
+    _, _, f1_score = get_precision_recall_f1score(y_test, y_hat_test)
+    auc = get_auc(y_test, s_test)
+    avpr = get_avpr(y_test, s_test)
+    optimal_f1__score = get_optimal_f1_score(y_test, s_test)
+
+    return f1_score, auc, avpr, optimal_f1__score
