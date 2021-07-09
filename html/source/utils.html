@@ -1,0 +1,520 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>utils package &mdash; Anomaly Detection: How to Artificially Increase your F1-Score with a Biased Evaluation Protocol  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="f1_hack module" href="f1_hack.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Anomaly Detection: How to Artificially Increase your F1-Score with a Biased Evaluation Protocol
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">F1-Score-is-Biased</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="f1_hack.html">f1_hack module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.datasets">utils.datasets module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.helpers">utils.helpers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.protocols">utils.protocols module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.scores">utils.scores module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Anomaly Detection: How to Artificially Increase your F1-Score with a Biased Evaluation Protocol</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">F1-Score-is-Biased</a> &raquo;</li>
+        
+      <li>utils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/source/utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="utils-package">
+<h1>utils package<a class="headerlink" href="#utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-utils.datasets">
+<span id="utils-datasets-module"></span><h2>utils.datasets module<a class="headerlink" href="#module-utils.datasets" title="Permalink to this headline">¶</a></h2>
+<p>Contains dataset-related functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.datasets.generate_toy_data">
+<span class="sig-prename descclassname"><span class="pre">utils.datasets.</span></span><span class="sig-name descname"><span class="pre">generate_toy_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contamination_rate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.datasets.generate_toy_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a toy dataset. Normal samples are sampled from a standard gaussian distribution,
+anomalous samples are sampled from a noisy circle around the mean.
+There are 500 clean train samples, 1000 clean test samples and some anomalous test samples (see contamination_rate).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contamination_rate</strong> – Float in [0, 1[; contamination rate of the test set</p></li>
+<li><p><strong>radius</strong> – Float; radius of the anomalous circle</p></li>
+<li><p><strong>seed</strong> – Int; seed for the dataset generation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(np.ndarray(Float), np.ndarray(Float), np.ndarray(np.uint8)); train set, test set, test labels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.datasets.load_dataset">
+<span class="sig-prename descclassname"><span class="pre">utils.datasets.</span></span><span class="sig-name descname"><span class="pre">load_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.datasets.load_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the required dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dataset_name</strong> – String (in _DATASET_FILES); dataset required</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(np.ndarray(Float), np.ndarray(np.uint8));
+ordinal-encoded samples and corresponding labels (1 for anomalies, 0 for normal samples)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.datasets.normalize_data">
+<span class="sig-prename descclassname"><span class="pre">utils.datasets.</span></span><span class="sig-name descname"><span class="pre">normalize_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fit_on</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.datasets.normalize_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Min-max-normalises samples from each array in “transform” based on “fit_on” samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fit_on</strong> – np.ndarray(Float); samples on which to fit the normalisation</p></li>
+<li><p><strong>transform</strong> – tuple(np.ndarray(Float)); arrays of samples to normalise</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>tuple(np.ndarray(Float));; arrays of normalised samples</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.helpers">
+<span id="utils-helpers-module"></span><h2>utils.helpers module<a class="headerlink" href="#module-utils.helpers" title="Permalink to this headline">¶</a></h2>
+<p>Contains helpers that cannot go in other categories.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.helpers.cont_to_anomalies_per_clean_sample">
+<span class="sig-prename descclassname"><span class="pre">utils.helpers.</span></span><span class="sig-name descname"><span class="pre">cont_to_anomalies_per_clean_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contamination_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.helpers.cont_to_anomalies_per_clean_sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the number of anomalies per clean sample needed to obtain the expected contamination rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>contamination_rate</strong> – np.ndarray(Float) or Float in [0, 1[; contamination rate expected</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>np.ndarray(Float) or Float; number of anomalies per clean samples needed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.helpers.get_model_scores">
+<span class="sig-prename descclassname"><span class="pre">utils.helpers.</span></span><span class="sig-name descname"><span class="pre">get_model_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">samples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.helpers.get_model_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the score given by the model to given samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – sklearn model; model to use for anomaly detection</p></li>
+<li><p><strong>samples</strong> – np.ndarray(Float); samples to make a prediction for</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>np.ndarray(Float); scores (higher is more anomalous)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.helpers.get_subset">
+<span class="sig-prename descclassname"><span class="pre">utils.helpers.</span></span><span class="sig-name descname"><span class="pre">get_subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.helpers.get_subset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Selects without replacement samples from the given sets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples</strong> – np.ndarray(Float); samples to select from</p></li>
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); corresponding labels</p></li>
+<li><p><strong>subset</strong> – Float; proportion of samples to select</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(np.ndarray(Float), np.ndarray(np.uint8)); subset of samples and corresponding labels.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.helpers.get_threshold">
+<span class="sig-prename descclassname"><span class="pre">utils.helpers.</span></span><span class="sig-name descname"><span class="pre">get_threshold</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">contamination_rate_estimation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.helpers.get_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the fp = fn threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – np.ndarray(Float); anomaly-scores to base the threshold on</p></li>
+<li><p><strong>contamination_rate_estimation</strong> – Float; estimation of the contamination rate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float; fp = fn threshold</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.protocols">
+<span id="utils-protocols-module"></span><h2>utils.protocols module<a class="headerlink" href="#module-utils.protocols" title="Permalink to this headline">¶</a></h2>
+<p>Contains the two algorithms presented in the paper as well as sub-functions used in these.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.protocols.algo1">
+<span class="sig-prename descclassname"><span class="pre">utils.protocols.</span></span><span class="sig-name descname"><span class="pre">algo1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.protocols.algo1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Algorithm 1 as described in the paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples</strong> – np.ndarray(Float); samples to use to train and test the given model</p></li>
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); corresponding labels (1 is anomalous)</p></li>
+<li><p><strong>test_size</strong> – Float; proportion of samples to use in the test set</p></li>
+<li><p><strong>model</strong> – sklearn model; model to train and evaluate</p></li>
+<li><p><strong>compute_metrics</strong> – Bool; whether to compute the metrics or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>if compute_metrics is True: (Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score
+if compute_metrics is False: (np.ndarray(Float), np.ndarray(Float), np.ndarray(Float)):</p>
+<blockquote>
+<div><p>labels, scores and binary predictions of the test set</p>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.protocols.algo2">
+<span class="sig-prename descclassname"><span class="pre">utils.protocols.</span></span><span class="sig-name descname"><span class="pre">algo2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_metrics</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.protocols.algo2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Algorithm 2 as described in the paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples</strong> – np.ndarray(Float); samples to use to train and test the given model</p></li>
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); corresponding labels (1 is anomalous)</p></li>
+<li><p><strong>test_size</strong> – Float; proportion of samples to use in the test set</p></li>
+<li><p><strong>model</strong> – sklearn model; model to train and evaluate</p></li>
+<li><p><strong>compute_metrics</strong> – Bool; whether to compute the metrics or not</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>if compute_metrics is True: (Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score
+if compute_metrics is False: (np.ndarray(Float), np.ndarray(Float), np.ndarray(Float)):</p>
+<blockquote>
+<div><p>labels, scores and binary predictions of the test set</p>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.protocols.algo2_end">
+<span class="sig-prename descclassname"><span class="pre">utils.protocols.</span></span><span class="sig-name descname"><span class="pre">algo2_end</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.protocols.algo2_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>Algorithm 2 as described in the paper, but the splitting is already done and there is no normalisation step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_train</strong> – np.ndarray(Float); samples to use to train the given model</p></li>
+<li><p><strong>x_test</strong> – np.ndarray(Float); samples to use to test the given model</p></li>
+<li><p><strong>y_test</strong> – np.ndarray(np.uint8); test labels (1 is anomalous)</p></li>
+<li><p><strong>model</strong> – sklearn model; model to train and evaluate</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils.scores">
+<span id="utils-scores-module"></span><h2>utils.scores module<a class="headerlink" href="#module-utils.scores" title="Permalink to this headline">¶</a></h2>
+<p>Contains metric-related functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.scores.compute_f1_score">
+<span class="sig-prename descclassname"><span class="pre">utils.scores.</span></span><span class="sig-name descname"><span class="pre">compute_f1_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.scores.compute_f1_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the F1-score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tp</strong> – Integer: number of true positives</p></li>
+<li><p><strong>fp</strong> – Integer: number of false positives</p></li>
+<li><p><strong>fn</strong> – Integer: number of false negatives</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float: F1-score</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.scores.get_auc">
+<span class="sig-prename descclassname"><span class="pre">utils.scores.</span></span><span class="sig-name descname"><span class="pre">get_auc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.scores.get_auc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the auc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); labels of the samples</p></li>
+<li><p><strong>scores</strong> – np.ndarray(Float); corresponding anomaly scores</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float; auc</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.scores.get_avpr">
+<span class="sig-prename descclassname"><span class="pre">utils.scores.</span></span><span class="sig-name descname"><span class="pre">get_avpr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.scores.get_avpr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the avpr using anomalies as the positive class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); labels of the samples</p></li>
+<li><p><strong>scores</strong> – np.ndarray(Float); corresponding anomaly scores</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float; avpr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.scores.get_optimal_f1_score">
+<span class="sig-prename descclassname"><span class="pre">utils.scores.</span></span><span class="sig-name descname"><span class="pre">get_optimal_f1_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.scores.get_optimal_f1_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the optimal-threshold F1-score using anomalies as the positive class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); labels of the samples</p></li>
+<li><p><strong>scores</strong> – np.ndarray(Float); corresponding anomaly scores</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Float: optimal-threshold F1-score</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.scores.get_precision_recall_f1score">
+<span class="sig-prename descclassname"><span class="pre">utils.scores.</span></span><span class="sig-name descname"><span class="pre">get_precision_recall_f1score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predictions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.scores.get_precision_recall_f1score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the precision, recall and F1-score using anomalies as the positive class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>labels</strong> – np.ndarray(np.uint8); labels of the samples</p></li>
+<li><p><strong>predictions</strong> – np.ndarray(Float); corresponding binary predictions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(Float, Float, Float); precision, recall and F1-score</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h2>
+<p>Contains helpers for the different notebooks and codes.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="f1_hack.html" class="btn btn-neutral float-left" title="f1_hack module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, D. Fourure, M.U. Javaid, N. Posocco, and S. Tihon.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
