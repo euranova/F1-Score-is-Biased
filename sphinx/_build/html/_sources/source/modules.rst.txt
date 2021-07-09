@@ -1,8 +1,0 @@
-F1-Score-is-Biased
-==================
-
-.. toctree::
-   :maxdepth: 4
-
-   f1_hack
-   utils

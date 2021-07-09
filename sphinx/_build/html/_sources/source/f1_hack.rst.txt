@@ -1,7 +1,0 @@
-f1\_hack module
-===============
-
-.. automodule:: f1_hack
-   :members:
-   :undoc-members:
-   :show-inheritance:
