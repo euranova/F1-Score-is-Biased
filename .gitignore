@@ -3,7 +3,4 @@ __pycache__
 datasets
 .idea
 .pylintrc
-sphinx/*
-!sphinx/_build
-sphinx/_build/*
-!sphinx/_build/html
+sphinx/

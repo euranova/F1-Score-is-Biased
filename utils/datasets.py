@@ -83,7 +83,7 @@ def load_dataset(dataset_name):
 
     try:
         data = scipy.io.loadmat(dataset_path)
-    except NotImplementedError:
+    except NotImplementedError:  # scipy.io.loadmat does not implement the HDF5 / 7.3 interface
         data = mat73.loadmat(dataset_path)
 
     x = data['X'].astype(np.float32)

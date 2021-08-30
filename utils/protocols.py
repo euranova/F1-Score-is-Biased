@@ -34,29 +34,29 @@ def algo1(samples, labels, test_size, model, compute_metrics=True):
     model.fit(x_clean)
 
     # Compute the scores obtained on the train set
-    s_train = get_model_scores(model, x_train)
+    scores_on_train_set = get_model_scores(model, x_train)
 
     # Estimate the contamination rate based on the train set (in [0, 1])
-    cont = np.sum(y_train) / len(y_train)
+    contamination_rate = np.sum(y_train) / len(y_train)
 
     # Compute a threshold based on the train set
-    thresh = get_threshold(s_train, cont)
+    threshold = get_threshold(scores_on_train_set, contamination_rate)
 
     # Compute the scores obtained on the test set
-    s_test = get_model_scores(model, x_test)
+    scores_on_test_set = get_model_scores(model, x_test)
 
     # Compute the binary predictions
-    y_hat_test = (s_test >= thresh).astype(int)
+    y_test_predicted = (scores_on_test_set >= threshold).astype(int)
 
     # Return labels, scores and predictions in case we want to explore other metrics
     if not compute_metrics:
-        return y_test, s_test, y_hat_test
+        return y_test, scores_on_test_set, y_test_predicted
 
     # Get all metric values
-    _, _, f1_score = get_precision_recall_f1score(y_test, y_hat_test)
-    auc = get_auc(y_test, s_test)
-    avpr = get_avpr(y_test, s_test)
-    optimal_f1__score = get_optimal_f1_score(y_test, s_test)
+    _, _, f1_score = get_precision_recall_f1score(y_test, y_test_predicted)
+    auc = get_auc(y_test, scores_on_test_set)
+    avpr = get_avpr(y_test, scores_on_test_set)
+    optimal_f1__score = get_optimal_f1_score(y_test, scores_on_test_set)
 
     return f1_score, auc, avpr, optimal_f1__score
 
@@ -91,26 +91,26 @@ def algo2(samples, labels, test_size, model, compute_metrics=True):
     model.fit(x_clean)
 
     # Compute the scores obtained on the test set
-    s_test = get_model_scores(model, x_test)
+    scores_on_test_set = get_model_scores(model, x_test)
 
     # Compute the contamination rate of the test set (in [0, 1])
-    cont = np.sum(y_test) / len(y_test)
+    contamination_rate = np.sum(y_test) / len(y_test)
 
     # Compute a threshold based on the test set
-    thresh = get_threshold(s_test, cont)
+    threshold = get_threshold(scores_on_test_set, contamination_rate)
 
     # Compute the binary predictions
-    y_hat_test = (s_test >= thresh).astype(int)
+    y_test_predicted = (scores_on_test_set >= threshold).astype(int)
 
     # Return labels, scores and predictions in case we want to explore other metrics
     if not compute_metrics:
-        return y_test, s_test, y_hat_test
+        return y_test, scores_on_test_set, y_test_predicted
 
     # Get all metric values
-    _, _, f1_score = get_precision_recall_f1score(y_test, y_hat_test)
-    auc = get_auc(y_test, s_test)
-    avpr = get_avpr(y_test, s_test)
-    optimal_f1__score = get_optimal_f1_score(y_test, s_test)
+    _, _, f1_score = get_precision_recall_f1score(y_test, y_test_predicted)
+    auc = get_auc(y_test, scores_on_test_set)
+    avpr = get_avpr(y_test, scores_on_test_set)
+    optimal_f1__score = get_optimal_f1_score(y_test, scores_on_test_set)
 
     return f1_score, auc, avpr, optimal_f1__score
 
@@ -125,14 +125,14 @@ def algo2_end(x_train, x_test, y_test, model):
     :return: (Float, Float, Float, Float); F1-score, AUC, AVPR and optimal-threshold F1-score
     """
     model.fit(x_train)
-    s_test = get_model_scores(model, x_test)
-    cont = np.sum(y_test) / len(y_test)
-    thresh = get_threshold(s_test, cont)
-    y_hat_test = (s_test >= thresh).astype(int)
+    scores_on_test_set = get_model_scores(model, x_test)
+    contamination_rate = np.sum(y_test) / len(y_test)
+    threshold = get_threshold(scores_on_test_set, contamination_rate)
+    y_test_predicted = (scores_on_test_set >= threshold).astype(int)
 
-    _, _, f1_score = get_precision_recall_f1score(y_test, y_hat_test)
-    auc = get_auc(y_test, s_test)
-    avpr = get_avpr(y_test, s_test)
-    optimal_f1__score = get_optimal_f1_score(y_test, s_test)
+    _, _, f1_score = get_precision_recall_f1score(y_test, y_test_predicted)
+    auc = get_auc(y_test, scores_on_test_set)
+    avpr = get_avpr(y_test, scores_on_test_set)
+    optimal_f1__score = get_optimal_f1_score(y_test, scores_on_test_set)
 
     return f1_score, auc, avpr, optimal_f1__score

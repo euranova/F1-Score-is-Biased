@@ -9,7 +9,7 @@ import click
 from tqdm import tqdm
 from sklearn.svm import OneClassSVM
 
-from utils.datasets import load_dataset
+from utils.datasets import load_dataset, _DATASET_FILES
 from utils.helpers import get_subset
 from utils.protocols import algo1, algo2
 
@@ -18,7 +18,7 @@ from utils.protocols import algo1, algo2
 @click.option('--output_file', default='./results/table1.csv', help='Output file')
 @click.option('--n_runs', default=100, help='Number of runs to do', type=int)
 @click.option('-d', '--datasets', default=["thyroid", "arrhythmia"], multiple=True,
-              type=click.Choice(['arrhythmia', 'thyroid', "kddcup"], case_sensitive=False),
+              type=click.Choice(list(_DATASET_FILES), case_sensitive=False),
               help='Datasets to use. Multiple datasets can be entered by reentering the option.')
 @click.option('-s', '--settings', multiple=True, type=str, default=["1.2e", "2.2e", "2.05e", "2.05o"],
               help=r"Settings to use, following the format '[12]\.\d+[oe]'. "

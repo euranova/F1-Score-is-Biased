@@ -34,16 +34,20 @@ You can install all the packages by running the following command line.
 
 By default datasets are not in the repository but are automatically downloaded the first time you run the code. Datasets are saved in the *datasets* folder.
 
-### Jupyter Notebook
-
-We provide different notebooks to reproduce our results.
-You can launch a notebook environment with the following command line.
-
-`jupyter notebook`
-
 ## Reproducing the Results
 
 We provide multiple notebooks and a script to reproduce the results presented in the paper.
+You will find below the steps to reproduce our main results:
+
+* [Table 1](#table-1-demonstration-of-the-sensitivity-of-the-metrics-to-the-evaluation-protocol) - Demonstration of the Sensitivity of the Metrics to the Evaluation Protocol
+* [Figures 2 and 3](#metrics-per-contamination-estimation-figures-2-and-3) - Metrics per Contamination Estimation
+* [Figure 4](#metrics-per-true-contamination-rate-figure-4)  - Metrics per True Contamination Rate
+* [Figures 5 and 6](#theoretical-f1-score-figures-5-and-6) - Theoretical F1-Score
+* [Figure 7](#toy-dataset-experiments-figure-7) - Toy Dataset Experiments
+
+You can launch a notebook environment with the following command line.
+`jupyter notebook`
+
 
 ### Table 1 - Demonstration of the Sensitivity of the Metrics to the Evaluation Protocol
 
